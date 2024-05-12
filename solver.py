@@ -38,13 +38,20 @@ class Solver24:
                 a, b, c, d = p
                 op1, op2, op3 = ops
 
+
+                # (( a . b ) . c ) . d
+                # ( a . ( b . c ) ) . d
+                # a . (( b . c ) . d )
+                # a . ( b . ( c . d ))
+                # ( a . b ) . ( c . d )
+                # a . b . c . d
                 expressions = [
                     f'(({a} {op1} {b}) {op2} {c}) {op3} {d}',
                     f'({a} {op1} ({b} {op2} {c})) {op3} {d}',
                     f'{a} {op1} (({b} {op2} {c}) {op3} {d})',
                     f'{a} {op1} ({b} {op2} ({c} {op3} {d}))',
                     f'({a} {op1} {b}) {op2} ({c} {op3} {d})',
-                    f'{a} {op1} {b} {op2} {c} {op3} {d}'
+                    # f'{a} {op1} {b} {op2} {c} {op3} {d}' - This last case is covered by the first five
                 ]
 
                 for expr in expressions:
